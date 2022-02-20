@@ -15,7 +15,7 @@ pipeline{
                 timeout(activity: true, time: 5) {
                     def qg=waitForQualityGate()
                     if (qg.status!="OK"){
-                        error "pipeline failed due to quality gate failure: ${qg}"
+                        error "pipeline failed due to quality gate failure: ${qg.status}"
                     }
                 }
                 }
