@@ -5,6 +5,12 @@ pipeline{
     }
     stages{
         stage("Sonar Quality Check"){
+            agent {
+                docker {
+                    image 'openjdk:11'
+                }
+            }
+
             steps{
                 script{
                     withSonarQubeEnv(credentialsId: 'sonarqube_token') {
@@ -13,7 +19,7 @@ pipeline{
                     }
 
                 timeout(activity: true, time: 5) {
-                    def qg=waitForQualityGate()
+                    def qg=waitForQualityGate abortPipeline: true, credentialsId: 'sonarqube_token'
                     if (qg.status!="OK"){
                         error "pipeline failed due to quality gate failure: ${qg.status}"
                     }
