@@ -36,8 +36,8 @@ pipeline{
                 sh '''
                 docker build -t ip-172-31-15-198.ec2.internal:8083/springapp:${VERSION} .
                 docker login -u admin -p ${nexus_password} ip-172-31-15-198.ec2.internal:8083
-                docker push 3.236.136.57:8083/springapp:${VERSION}
-                docker rmi 3.236.136.57:8083/springapp:${VERSION}
+                docker push ip-172-31-15-198.ec2.internal:8083/springapp:${VERSION}
+                docker rmi ip-172-31-15-198.ec2.internal:8083/springapp:${VERSION}
                 '''
                 }
 
@@ -46,15 +46,5 @@ pipeline{
         }
 
     }
-    post{
-        always{
-            echo "========always========"
-        }
-        success{
-            echo "========pipeline executed successfully ========"
-        }
-        failure{
-            echo "========pipeline execution failed========"
-        }
-    }
+
 }
